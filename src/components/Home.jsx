@@ -4,6 +4,7 @@ import img2 from "../assets/2.jpg";
 import img3 from "../assets/img3.jpg";
 import img4 from "../assets/img4.jpg";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const productList = [
@@ -18,20 +19,26 @@ const Home = () => {
       price: 30,
       imgSrc: img2,
       id: "bdwdwdwdwd",
-    },{
+    },
+    {
       name: "Watch",
       price: 130,
       imgSrc: img3,
       id: "bwdw",
-    },{
+    },
+    {
       name: "Headphones",
       price: 70,
       imgSrc: img4,
       id: "bs",
     },
   ];
-  const addToCardHandler = (options) => {
-    console.log(options);
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (options) => {
+    dispatch({ type: "addToCart", payload: options });
+    dispatch({ type: "calculatePrice" });
     toast.success("Added to Cart!");
   };
 
@@ -44,7 +51,7 @@ const Home = () => {
           price={i.price}
           imgSrc={i.imgSrc}
           id={i.id}
-          handler={addToCardHandler}
+          handler={addToCartHandler}
         />
       ))}
     </div>
